@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /commande.html
+
+Sitemap: https://magaligator.github.io/Magali/sitemap.xml

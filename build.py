@@ -9,11 +9,14 @@ from data import *
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 PROD = os.path.join(ROOT, "assets", "img", "produits")
-SITE_URL = "https://www.magalai.ch"   # à adapter
+SITE_URL = "https://magaligator.github.io/Magali"   # à changer le jour où tu as un nom de domaine (ex. https://www.magalai.ch) puis relancer build.py
+CUR = "index.html"   # page en cours de génération (pour canonical / sitemap)
+TODAY = __import__("datetime").date.today().isoformat()
 
 BY_SLUG = {p["slug"]: p for p in PRODUCTS}
 TYPE_LABEL = dict(TYPES)
 NUM = {p["slug"]: i + 1 for i, p in enumerate(PRODUCTS)}
+FRAGILE = {"aaliyah": "perles", "ines": "perles", "naima": "strass"}
 
 
 def w(rel, content):
@@ -211,6 +214,15 @@ def footer():
 
 def layout(page, title, desc, body, extra_head="", extra_js=""):
     full_title = title if "MAGALAÏ" in title else f"{title} — MAGALAÏ"
+    site_ld = ""
+    if page == "index":
+        org = {"@context": "https://schema.org", "@graph": [
+            {"@type": "Organization", "@id": SITE_URL + "/#org", "name": "MAGALAÏ", "url": SITE_URL + "/",
+             "logo": SITE_URL + "/assets/img/logo/magalai-bordeaux.png", "slogan": TAGLINE,
+             "description": "Boucles d'oreilles en acier inoxydable, finition dorée. Chaque paire porte le prénom d'une femme."},
+            {"@type": "WebSite", "@id": SITE_URL + "/#site", "url": SITE_URL + "/", "name": "MAGALAÏ", "inLanguage": "fr-CH",
+             "publisher": {"@id": SITE_URL + "/#org"}}]}
+        site_ld = '<script type="application/ld+json">' + json.dumps(org, ensure_ascii=False) + '</script>'
     return f'''<!doctype html>
 <html lang="fr">
 <head>
@@ -221,7 +233,20 @@ def layout(page, title, desc, body, extra_head="", extra_js=""):
 <meta name="theme-color" content="#5A0B16">
 <meta property="og:title" content="{esc(full_title)}">
 <meta property="og:description" content="{esc(desc)}">
-<meta property="og:type" content="website">
+<link rel="canonical" href="{SITE_URL}/{CUR if CUR != 'index.html' else ''}">
+<meta property="og:type" content="{'product' if page == 'produit' else 'website'}">
+<meta property="og:site_name" content="MAGALAÏ">
+<meta property="og:locale" content="fr_CH">
+<meta property="og:url" content="{SITE_URL}/{CUR if CUR != 'index.html' else ''}">
+<meta property="og:image" content="{SITE_URL}/assets/img/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="MAGALAÏ — boucles d'oreilles dorées, chaque paire porte un prénom">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{esc(full_title)}">
+<meta name="twitter:description" content="{esc(desc)}">
+<meta name="twitter:image" content="{SITE_URL}/assets/img/og-image.jpg">
+{site_ld}
 <link rel="icon" type="image/png" href="assets/img/logo/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -376,7 +401,7 @@ def page_index():
     <div class="mat-cards">
       <article class="reveal"><span class="mono">01</span>{ic('layers')}<h3>Une barrière invisible</h3><p>Au contact de l'air, le chrome forme une fine couche d'oxyde, compacte et adhérente, qui protège l'acier de la corrosion.</p></article>
       <article class="reveal"><span class="mono">02</span>{ic('drop')}<h3>Eau &amp; transpiration</h3><p>Douche, pluie, sueur, cosmétiques : l'acier inoxydable y résiste. Seuls les bains prolongés en piscine ou en mer sont à éviter.</p></article>
-      <article class="reveal"><span class="mono">03</span>{ic('shield')}<h3>Sans rouille au quotidien</h3><p>Dans un usage normal, il ne rouille pas : vos boucles se portent jour après jour, sans précaution particulière.</p></article>
+      <article class="reveal"><span class="mono">03</span>{ic('shield')}<h3>Sans rouille au quotidien</h3><p>Dans un usage normal, il ne rouille pas : vos boucles se portent jour après jour, avec un simple chiffon doux pour tout entretien.</p></article>
       <article class="reveal"><span class="mono">04</span>{ic('ring')}<h3>Solide, pour longtemps</h3><p>Il ne se déforme pas et se recycle à l'infini : des boucles pensées pour durer, et à garder.</p></article>
     </div>
   </div>
@@ -444,8 +469,8 @@ def page_index():
 {promises()}
 {newsletter()}
 '''
-    return layout("index", "MAGALAÏ — Every earring tells her story",
-                  "Boucles d'oreilles dorées, bohèmes et chics. Chaque paire porte le prénom d'une femme et arrive avec la carte de son histoire.",
+    return layout("index", "MAGALAÏ — Boucles d'oreilles dorées en acier inoxydable",
+                  "Boucles d'oreilles dorées en acier inoxydable, résistantes à l'eau et à la sueur. Chaque paire porte le prénom d'une femme. Livraison offerte dès CHF 120.",
                   body, extra_js='<script src="assets/hero-data.js"></script>\n')
 
 
@@ -508,11 +533,23 @@ def page_produit(p):
             break
         if x["slug"] != p["slug"] and x["slug"] not in related:
             related.append(x["slug"])
-    ld = {"@context": "https://schema.org", "@type": "Product", "name": f"Boucles d'oreilles {p['name']}",
-          "description": p["tagline"], "brand": {"@type": "Brand", "name": "MAGALAÏ"},
-          "image": f"{SITE_URL}/{pimg(p,1)}",
-          "offers": {"@type": "Offer", "priceCurrency": CURRENCY, "price": str(p["price"]), "availability": "https://schema.org/InStock"}}
-    head = f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>'
+    fr = FRAGILE.get(p["slug"])
+    frag_detail = (f"<p>Les {fr} sont plus délicats que l'acier : évitez les chocs et retirez la paire avant de vous laver.</p>" if fr else "")
+    frag_care = (f"<p>Pour les {fr} : pas d'eau prolongée, pas de produits (parfum, crème), et un simple chiffon sec.</p>" if fr else "")
+    purl = f"{SITE_URL}/produit-{p['slug']}.html"
+    ld = {"@context": "https://schema.org", "@type": "Product", "name": f"Boucles d'oreilles {p['name']} — {p['label']}",
+          "description": f"{p['tagline']} {p['label']} en acier inoxydable, finition dorée, collection {col['name']}.",
+          "sku": f"MAG-{n2(NUM[p['slug']])}", "material": "Acier inoxydable", "color": "Doré", "category": "Boucles d'oreilles",
+          "brand": {"@type": "Brand", "name": "MAGALAÏ"}, "url": purl,
+          "image": [f"{SITE_URL}/{pimg(p,n)}" for n in (1, 2, 3)],
+          "offers": {"@type": "Offer", "url": purl, "priceCurrency": CURRENCY, "price": str(p["price"]),
+                     "itemCondition": "https://schema.org/NewCondition", "availability": "https://schema.org/InStock"}}
+    bc = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Accueil", "item": SITE_URL + "/"},
+        {"@type": "ListItem", "position": 2, "name": "Boutique", "item": SITE_URL + "/boutique.html"},
+        {"@type": "ListItem", "position": 3, "name": p["name"], "item": purl}]}
+    head = ('<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False) + '</script>\n'
+            '<script type="application/ld+json">' + json.dumps(bc, ensure_ascii=False) + '</script>')
     body = f'''
 <section class="pdp" data-pdp="{p['slug']}">
   <div class="container">
@@ -537,9 +574,9 @@ def page_produit(p):
         <ul class="mini-promises"><li>{ic('truck')} Livraison offerte dès {CURRENCY} {FREE_SHIPPING}</li><li>{ic('return')} Retours sous 30 jours</li><li>{ic('shield')} Acier inoxydable : eau, sueur, rouille</li></ul>
         <div class="accordion">
           <details open><summary>Son histoire{ic('plus')}</summary><div class="acc-body">{story}</div></details>
-          <details><summary>Détails &amp; matière{ic('plus')}</summary><div class="acc-body"><p><strong>Acier inoxydable, finition dorée.</strong> {p['dim']}, {p['weight']} la paire. {p['clasp']}.</p><p>Au moins 10,5 % de chrome : au contact de l'air, il forme une fine couche d'oxyde qui protège l'acier de la corrosion. Il résiste à l'eau, à la transpiration et aux cosmétiques, et ne rouille pas dans un usage normal.</p><p>Matière bien tolérée par la plupart des peaux ; en cas d'allergie au nickel avérée, demandez l'avis d'un dermatologue.</p></div></details>
+          <details><summary>Détails &amp; matière{ic('plus')}</summary><div class="acc-body"><p><strong>Acier inoxydable, finition dorée.</strong> {p['dim']}, {p['weight']} la paire. {p['clasp']}.</p><p>Au moins 10,5 % de chrome : au contact de l'air, il forme une fine couche d'oxyde qui protège l'acier de la corrosion. Il résiste à l'eau, à la transpiration et aux cosmétiques, et ne rouille pas dans un usage normal.</p><p>Matière bien tolérée par la plupart des peaux ; en cas d'allergie au nickel avérée, demandez l'avis d'un dermatologue.</p>{frag_detail}</div></details>
           <details><summary>Livraison &amp; retours{ic('plus')}</summary><div class="acc-body"><p>Expédition sous 48 h ouvrées. 2 à 3 jours en Suisse, 4 à 7 jours en Europe. Livraison offerte dès {CURRENCY} {FREE_SHIPPING}.</p><p>Retours acceptés sous 30 jours, boucles non portées et dans leur emballage d'origine.</p></div></details>
-          <details><summary>Entretien{ic('plus')}</summary><div class="acc-body"><p>Douche, pluie et sport ne leur font pas peur. Évitez les bains prolongés en piscine ou en mer (chlore, sel).</p><p>Pour préserver l'éclat de la finition dorée : évitez les produits abrasifs, essuyez-les avec un chiffon doux et rangez-les dans leur écrin.</p></div></details>
+          <details><summary>Entretien{ic('plus')}</summary><div class="acc-body"><p>Douche, pluie et sport ne leur font pas peur. Évitez les bains prolongés en piscine ou en mer (chlore, sel).</p>{frag_care}<p>Pour préserver l'éclat de la finition dorée : évitez les produits abrasifs, essuyez-les avec un chiffon doux et rangez-les dans leur écrin.</p></div></details>
         </div>
       </div>
     </div>
@@ -565,7 +602,7 @@ def page_produit(p):
 <div class="sticky-atc" aria-hidden="true"><div><strong>{esc(p['name'])}</strong><span>{price(p['price'])}</span></div><button class="btn btn-dark" type="button" data-add="{p['slug']}">Ajouter au panier</button></div>
 <div class="lightbox" id="lb" hidden><button class="icon-btn lb-close" type="button" aria-label="Fermer">{ic('close')}</button><button class="icon-btn lb-prev" type="button" aria-label="Précédent">{ic('arrow-l')}</button><img src="" alt=""><button class="icon-btn lb-next" type="button" aria-label="Suivant">{ic('arrow')}</button></div>
 '''
-    return layout("produit", f"{p['name']} — {p['label']}", f"{p['name']} : {p['label']}, collection {col['name']}. {p['tagline']} Acier inoxydable résistant, finition dorée, carte-histoire incluse.", body, head)
+    return layout("produit", f"{p['name']} — {p['label']}", f"Boucles d'oreilles {p['name']} : {p['label']}, collection {col['name']}. Acier inoxydable doré, résistant à l'eau. CHF {p['price']}. {p['tagline']}", body, head)
 
 
 def page_collections():
@@ -658,7 +695,7 @@ def page_histoire():
     <div class="values">
       <article><span class="mono">01</span><h3>Bohème</h3><p>Des volumes libres, des formes inspirées par la nature et le mouvement : des bijoux qui bougent avec vous, du marché du matin au dîner qui s'éternise.</p></article>
       <article><span class="mono">02</span><h3>Chic</h3><p>Des lignes pures, des détails soignés, une finition irréprochable. Une élégance qui n'a rien à prouver, pensée pour les femmes actives de 23 à 55 ans.</p></article>
-      <article><span class="mono">03</span><h3>Dorée &amp; durable</h3><p>Une finition dorée sur acier inoxydable, un métal résistant à l'eau et à la transpiration : de la lumière aux oreilles, sans précaution.</p></article>
+      <article><span class="mono">03</span><h3>Dorée &amp; durable</h3><p>Une finition dorée sur acier inoxydable, un métal résistant à l'eau et à la transpiration : de la lumière aux oreilles, au quotidien.</p></article>
     </div>
   </div>
 </section>
@@ -781,6 +818,15 @@ def page_legal():
     return layout("legal", "Mentions légales", "Mentions légales, CGV et confidentialité de MAGALAÏ.", body, '<meta name="robots" content="noindex">')
 
 
+def page_404():
+    global CUR
+    CUR = "404.html"
+    body = f'''
+<section class="page-head"><div class="container"><p class="mono">Erreur 404</p><h1>Cette page s'est <em>égarée.</em></h1><p class="lead">Le lien est peut-être ancien. Retrouvez nos boucles d'oreilles dans la boutique.</p><div class="cta-row" style="margin-top:32px"><a class="btn btn-dark" href="index.html">Accueil</a><a class="btn btn-outline" href="boutique.html">Voir la boutique</a></div></div></section>
+'''
+    return layout("legal", "Page introuvable", "Page introuvable.", body, '<meta name="robots" content="noindex">')
+
+
 def products_js():
     data = [{"slug": p["slug"], "name": p["name"], "label": p["label"], "type": p["type"],
              "typeLabel": TYPE_LABEL[p["type"]], "collection": COLLECTIONS[p["collection"]]["name"],
@@ -789,17 +835,32 @@ def products_js():
                                            ensure_ascii=False, indent=1) + ";\n")
 
 
+def build(path, html_text):
+    global CUR
+    w(path, html_text)
+
+
 def main():
+    global CUR
     w("assets/products.js", products_js())
-    w("index.html", page_index())
-    w("boutique.html", page_boutique())
+    pages = [("index.html", page_index, 1.0), ("boutique.html", page_boutique, 0.9), ("collections.html", page_collections, 0.8),
+             ("histoire.html", page_histoire, 0.7), ("aide.html", page_aide, 0.6)]
+    urls = []
+    for f, fn, pr in pages:
+        CUR = f; w(f, fn()); urls.append((f, pr))
     for p in PRODUCTS:
-        w(f"produit-{p['slug']}.html", page_produit(p))
-    w("collections.html", page_collections())
-    w("histoire.html", page_histoire())
-    w("aide.html", page_aide())
-    w("commande.html", page_commande())
-    w("legal.html", page_legal())
+        CUR = f"produit-{p['slug']}.html"; w(CUR, page_produit(p)); urls.append((CUR, 0.8))
+    CUR = "commande.html"; w(CUR, page_commande())
+    CUR = "legal.html"; w(CUR, page_legal())
+    sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for f, pr in urls:
+        loc = SITE_URL + "/" + ("" if f == "index.html" else f)
+        sm.append(f"  <url><loc>{loc}</loc><lastmod>{TODAY}</lastmod><priority>{pr}</priority></url>")
+    sm.append("</urlset>")
+    w("sitemap.xml", "\n".join(sm) + "\n")
+    w("robots.txt", f"User-agent: *\nAllow: /\nDisallow: /commande.html\n\nSitemap: {SITE_URL}/sitemap.xml\n")
+    w(".nojekyll", "")
+    w("404.html", page_404())
     print(f"OK — {7 + len(PRODUCTS)} pages, {len(PRODUCTS)} produits")
 
 

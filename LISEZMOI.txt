@@ -1,3 +1,11 @@
+À FAIRE PAR TOI AVANT LA MISE EN LIGNE
+=====================================
+ [ ] Quand ton contenu est prêt : remplacer les photos provisoires par les tiennes — voir PHOTOS ci-dessous.
+ [ ] Me dire la nuance d'acier (304, 316L…) et le type de dorure (PVD, placage…) pour les citer sur le site.
+ [ ] Valider les prix, le seuil de livraison offerte (CHF 120), les délais/retours (30 jours) et le code MAGALAI10.
+ [ ] Valider les prénoms, histoires et le mot de la fondatrice (textes rédigés par moi).
+ [ ] Compléter « Mentions légales / CGV / Confidentialité » (page legal.html, vide) et l'adresse Instagram/domaine.
+
 MAGALAÏ — boutique en ligne, version blanche / noire (maquette)
 
 OUVRIR LE SITE : double-clic sur index.html (Chrome recommandé pour le slider WebGL)
@@ -5,8 +13,7 @@ OUVRIR LE SITE : double-clic sur index.html (Chrome recommandé pour le slider W
 PHOTOS
 ------
 Les photos viennent du dossier de référence « publier 250108 » (voir assets/img/SOURCES.txt pour la provenance de chaque fichier).
-ATTENTION : elles semblent issues de sites/campagnes tiers. Elles servent de maquette — remplace-les par tes propres photos
-(ou des visuels libres de droits / sous licence) avant toute mise en ligne.
+Ce sont des photos provisoires (empruntées) pour visualiser le rendu : elles seront remplacées par tes propres photos quand ton contenu sera finalisé.
 
 REMPLACER PAR TES PHOTOS
 1. Dépose tes photos dans assets/img/produits/ nommées <prenom>-1.jpg, <prenom>-2.jpg, <prenom>-3.jpg (jpg prioritaire sur webp).
@@ -45,7 +52,8 @@ MATIÈRE (acier inoxydable)
 Les boucles sont en ACIER INOXYDABLE (finition dorée). Textes mis à jour : FAQ (data.py), fiches produit, section « La matière » de l'accueil, page Aide, page Histoire.
 Arguments utilisés (sourcés, voir ci-dessous) : ≥ 10,5 % de chrome ; couche d'oxyde de chrome protectrice ; résiste à l'eau, à la transpiration et aux cosmétiques ;
 ne rouille pas en usage normal ; ne se déforme pas, recyclable ; à éviter : bains prolongés en piscine/mer (chlore, sel).
-À VÉRIFIER AVANT PUBLICATION :
+FAIT : perles/strass signalés comme plus fragiles sur les fiches Aaliyah, Inès et Naïma (Détails + Entretien) ; formulations « sans précaution » retirées (accueil, histoire).
+À VÉRIFIER AVANT PUBLICATION (dépend de toi) :
  - la nuance exacte (304, 316L…) : le 316L (avec molybdène, 2 à 2,5 %) est le plus résistant au sel/chlore — indique-la sur le site si c'est ton cas (le site n'en cite aucune) ;
  - le type de finition dorée (PVD, placage…) : elle est plus fragile que l'acier lui-même (selon les vendeurs, ~1 à 2 ans de tenue) → ne promets pas « ne ternit jamais » ;
  - « bien toléré par la plupart des peaux » : l'acier contient du nickel (lié, très peu libéré) ; ne pas écrire « hypoallergénique » sans test (norme EN 1811 / directive nickel) ;

@@ -8,7 +8,7 @@ import os, sys, io, base64, json
 from PIL import Image
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-SRC = sys.argv[1] if len(sys.argv) > 1 else "/Users/magalitshikudi/Documents/Projet/Maïda/Boucles d'oreilles/publier 250108"
+SRC = sys.argv[1] if len(sys.argv) > 1 else "photos-sources"
 files = sorted(f for f in os.listdir(SRC) if f.lower().endswith(('.webp', '.jpg', '.jpeg', '.png')))
 F = lambda i: files[i]   # index dans la liste triée du dossier source
 
