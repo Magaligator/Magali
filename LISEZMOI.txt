@@ -1,0 +1,53 @@
+MAGALAÏ — boutique en ligne, version blanche / noire (maquette)
+
+OUVRIR LE SITE : double-clic sur index.html (Chrome recommandé pour le slider WebGL)
+
+PHOTOS
+------
+Les photos viennent du dossier de référence « publier 250108 » (voir assets/img/SOURCES.txt pour la provenance de chaque fichier).
+ATTENTION : elles semblent issues de sites/campagnes tiers. Elles servent de maquette — remplace-les par tes propres photos
+(ou des visuels libres de droits / sous licence) avant toute mise en ligne.
+
+REMPLACER PAR TES PHOTOS
+1. Dépose tes photos dans assets/img/produits/ nommées <prenom>-1.jpg, <prenom>-2.jpg, <prenom>-3.jpg (jpg prioritaire sur webp).
+   -1 = produit seul · -2 = portée (apparaît au survol) · -3 = ambiance.  Format portrait 4:5 ou 2:3, ~1600 px de large.
+2. Relance : python3 build.py
+
+Noms attendus :
+   lina-1.jpg  lina-2.jpg  lina-3.jpg    (Lina — Créoles sculptées)
+   clara-1.jpg  clara-2.jpg  clara-3.jpg    (Clara — Créoles ajourées)
+   elena-1.jpg  elena-2.jpg  elena-3.jpg    (Éléna — Créoles croissant mat)
+   victoria-1.jpg  victoria-2.jpg  victoria-3.jpg    (Victoria — Pendantes sphères filigranées)
+   aaliyah-1.jpg  aaliyah-2.jpg  aaliyah-3.jpg    (Aaliyah — Boucles soleil et perles)
+   ines-1.jpg  ines-2.jpg  ines-3.jpg    (Inès — Puces fleur perlée)
+   zuri-1.jpg  zuri-2.jpg  zuri-3.jpg    (Zuri — Pendantes feuille ciselée)
+   ava-1.jpg  ava-2.jpg  ava-3.jpg    (Ava — Puces dôme spirale)
+   naima-1.jpg  naima-2.jpg  naima-3.jpg    (Naïma — Éventail d'éclats)
+   nora-1.jpg  nora-2.jpg  nora-3.jpg    (Nora — Pendantes carré filigrane)
+   juliette-1.jpg  juliette-2.jpg  juliette-3.jpg    (Juliette — Pendantes ailes ajourées)
+   sofia-1.jpg  sofia-2.jpg  sofia-3.jpg    (Sofia — Puces cône texturé)
+
+AUTRES VISUELS : assets/img/photos/ (tuiles, collections, histoire, cadeau, communauté) — remplace les fichiers en gardant le nom.
+SLIDER D'ACCUEIL : 4 portraits dans assets/img/photos/hero-1..4.webp. Pour les changer, modifie PHOTOS dans prepare_images.py puis
+   python3 prepare_images.py "<dossier source>" (régénère aussi assets/hero-data.js, nécessaire au WebGL en ouverture locale).
+
+TEXTES / PRIX / HISTOIRES : data.py puis python3 build.py.
+Pages : index, boutique, produit-<prenom>, collections, histoire, aide, commande, legal.
+
+MOBILE
+------
+Le site est responsive (testé à 390 px et 360 px, et en vrai Chrome) : menu burger, hero empilé (portrait puis prénom), filtres de la boutique
+en défilement horizontal, galerie produit tactile avec indicateurs, barre « Ajouter au panier » fixe, panier/recherche plein écran.
+Pour prévisualiser sur téléphone : depuis ce dossier, lance  python3 -m http.server 8000  puis ouvre http://<IP-du-Mac>:8000 sur le téléphone (même Wi-Fi).
+
+MATIÈRE (acier inoxydable)
+--------------------------
+Les boucles sont en ACIER INOXYDABLE (finition dorée). Textes mis à jour : FAQ (data.py), fiches produit, section « La matière » de l'accueil, page Aide, page Histoire.
+Arguments utilisés (sourcés, voir ci-dessous) : ≥ 10,5 % de chrome ; couche d'oxyde de chrome protectrice ; résiste à l'eau, à la transpiration et aux cosmétiques ;
+ne rouille pas en usage normal ; ne se déforme pas, recyclable ; à éviter : bains prolongés en piscine/mer (chlore, sel).
+À VÉRIFIER AVANT PUBLICATION :
+ - la nuance exacte (304, 316L…) : le 316L (avec molybdène, 2 à 2,5 %) est le plus résistant au sel/chlore — indique-la sur le site si c'est ton cas (le site n'en cite aucune) ;
+ - le type de finition dorée (PVD, placage…) : elle est plus fragile que l'acier lui-même (selon les vendeurs, ~1 à 2 ans de tenue) → ne promets pas « ne ternit jamais » ;
+ - « bien toléré par la plupart des peaux » : l'acier contient du nickel (lié, très peu libéré) ; ne pas écrire « hypoallergénique » sans test (norme EN 1811 / directive nickel) ;
+ - les perles/strass de certains modèles (Aaliyah, Inès, Naïma…) sont des éléments plus fragiles que l'acier.
+Sources : Wikipédia « Acier inoxydable » (seuil 10,5 % de chrome, couche d'oxyde de chrome, molybdène) ; Perles & Co « L'acier inox en bijouterie » ; guides de vendeurs 304 vs 316L ; directive européenne nickel 94/27/CE.
