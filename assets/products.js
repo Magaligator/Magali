@@ -3,20 +3,9 @@ window.MAGALAI = {
  "freeShipping": 120,
  "products": [
   {
-   "slug": "kate",
-   "name": "Kate",
-   "label": "Boucles éventails sculpturaux",
-   "type": "statement",
-   "typeLabel": "Statement",
-   "collection": "Aura",
-   "price": 139,
-   "img": "assets/img/produits/kate-1.webp",
-   "tagline": "Une allure sculpturale et intemporelle."
-  },
-  {
    "slug": "nala",
    "name": "Nala",
-   "label": "Pendantes éventails ondulés",
+   "label": "Boucles éventails ondulés",
    "type": "statement",
    "typeLabel": "Statement",
    "collection": "Aura",
@@ -27,13 +16,13 @@ window.MAGALAI = {
   {
    "slug": "amara",
    "name": "Amara",
-   "label": "Disques filigranés et cristaux",
+   "label": "Disques floraux ajourés",
    "type": "statement",
    "typeLabel": "Statement",
    "collection": "Soleil",
    "price": 129,
    "img": "assets/img/produits/amara-1.webp",
-   "tagline": "Une fleur de lumière, une pointe de couleur."
+   "tagline": "L'élégance qui ne passe pas inaperçue."
   },
   {
    "slug": "lina",

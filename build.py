@@ -298,10 +298,13 @@ def section_head(kicker, title, link=None, href=None):
 
 
 # ───────────────────────── pages ─────────────────────────
-def nk_block(slug, model, stone, macro, band_title, band_text, rev=False):
+def nk_block(slug, model, stone, macro, style_label, band_text, rev=False):
     p = BY_SLUG[slug]
     r = " rev" if rev else ""
-    return f'''<div class="nk-row{r}">
+    feats = [("gem", "Design", "unique"), ("leaf", "Style", style_label), ("spark", "Finition", "dorée brillante"), ("heart", "Fait pour vous accompagner", "au quotidien")]
+    fl = "".join(f'<li>{ic(i)}<span>{a}<br>{b}</span></li>' for i, a, b in feats)
+    return f'''<div class="nk-block">
+  <div class="nk-row{r}">
     <div class="nk-img img-reveal"><img src="{photo(model)}" alt="Boucles d'oreilles {p['name']} portées, collection Magalaï" loading="lazy" width="1000" height="866"></div>
     <div class="nk-text reveal">
       <p class="mono">Collection Magalaï <i>/</i> Bijoux qui vous ressemblent</p>
@@ -311,21 +314,20 @@ def nk_block(slug, model, stone, macro, band_title, band_text, rev=False):
       <div class="cta-row"><button class="btn btn-dark" type="button" data-add="{slug}">Ajouter au panier {ic('arrow')}</button><a class="btn btn-outline" href="produit-{slug}.html">Voir la fiche</a></div>
     </div>
   </div>
+  <ul class="nk-feats">{fl}</ul>
   <div class="nk-band{r}">
     <div class="nk-b-img img-reveal"><img src="{photo(stone)}" alt="Les boucles {p['name']} posées sur de la pierre" loading="lazy" width="800" height="780"></div>
-    <div class="nk-b-text"><span class="nk-rule"></span><h3>{band_title}</h3><span class="nk-rule"></span><p>{band_text}</p></div>
-    <div class="nk-b-img img-reveal late"><img src="{photo(macro)}" alt="Détail de la finition dorée des boucles {p['name']}" loading="lazy" width="700" height="760"></div>
-  </div>'''
+    <div class="nk-b-text"><span class="nk-rule"></span><h3>Des détails qui font la différence</h3><span class="nk-rule"></span><p>{band_text}</p></div>
+    <div class="nk-b-img img-reveal late"><img src="{photo(macro)}" alt="Détail de la finition des boucles {p['name']}" loading="lazy" width="800" height="760"></div>
+  </div>
+</div>'''
 
 
 def nk_section():
-    feats = [("gem", "Design", "unique"), ("leaf", "Style", "bohème chic"), ("spark", "Finition", "dorée brillante"), ("heart", "Fait pour vous accompagner", "au quotidien")]
-    fl = "".join(f'<li>{ic(i)}<span>{a}<br>{b}</span></li>' for i, a, b in feats)
     return f'''<section class="nk">
   <div class="container">
-    {nk_block("nala", "nk-nala-model", "nk-nala-stone", "nk-nala-macro", "Un design sculptural et intemporel", "Des lignes graphiques et une finition dorée éclatante pour un bijou qui attire la lumière et sublime chaque instant.")}
-    <ul class="nk-feats">{fl}</ul>
-    {nk_block("kate", "nk-kate-model", "nk-kate-stone", "nk-kate-macro", "Un design moderne et audacieux", "Des lignes sculpturales, une finition dorée éclatante et une forme ondulante pour un bijou qui attire la lumière et sublime chaque instant.", True)}
+    {nk_block("nala", "nk-nala-model", "nk-nala-stone", "nk-nala-macro", "contemporain", "Des lignes graphiques et une finition dorée éclatante pour un bijou qui attire la lumière et sublime chaque instant.")}
+    {nk_block("amara", "nk-amara-model", "nk-amara-stone", "nk-amara-macro", "bohème chic", "Un motif floral ajouré, une sphère lumineuse et une touche de couleur pour un bijou plein de caractère.", True)}
   </div>
 </section>'''
 
@@ -667,7 +669,7 @@ def page_collections():
 <section class="page-head big">
   <div class="container">
     <nav class="crumbs" aria-label="Fil d'Ariane"><a href="index.html">Accueil</a> <i>/</i> Collections</nav>
-    <h1>Trois univers, <em>quinze femmes.</em></h1>
+    <h1>Trois univers, <em>quatorze femmes.</em></h1>
     <p class="lead">Chaque collection a son atmosphère. Chaque boucle, son prénom.</p>
   </div>
 </section>
@@ -689,7 +691,7 @@ def page_histoire():
 <section class="page-head big">
   <div class="container">
     <nav class="crumbs" aria-label="Fil d'Ariane"><a href="index.html">Accueil</a> <i>/</i> Notre histoire</nav>
-    <h1>Un surnom, <em>une promesse,</em> quinze prénoms.</h1>
+    <h1>Un surnom, <em>une promesse,</em> quatorze prénoms.</h1>
     <p class="lead">L'histoire de MAGALAÏ commence avec un mot que l'on m'a donné à l'adolescence.</p>
   </div>
 </section>
@@ -721,7 +723,7 @@ def page_histoire():
     </div>
     <div class="prose reveal">
       <p>Chaque création MAGALAÏ porte le prénom d'une femme, symbole de force, de beauté et d'inspiration.</p>
-      <p>Kate, Nala, Amara, Lina, Naïma… Chaque modèle est imaginé comme le portrait d'une femme : sa manière d'entrer dans une pièce, de rire, de se tenir.</p>
+      <p>Nala, Amara, Lina, Naïma… Chaque modèle est imaginé comme le portrait d'une femme : sa manière d'entrer dans une pièce, de rire, de se tenir.</p>
       <p>Vous ne choisissez plus « des créoles » ou « des pendantes » : vous choisissez celle qui vous ressemble aujourd'hui. Et dans l'écrin, une carte vous raconte son histoire — il ne reste qu'à écrire la vôtre.</p>
       <a class="btn btn-dark" href="collections.html">Découvrir les femmes Magalaï {ic('arrow')}</a>
     </div>

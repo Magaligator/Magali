@@ -599,10 +599,8 @@ body.open-search .search{opacity:1;visibility:visible}
 .nk-b-text h3{font:400 clamp(1.8rem,2.6vw,2.6rem)/1.1 var(--serif);color:#fff;text-transform:uppercase;letter-spacing:.03em}
 .nk-b-text p{font-size:1.02rem;line-height:1.65;color:rgba(255,255,255,.86)}
 .nk-rule{display:block;width:34px;height:1px;background:rgba(255,255,255,.55)}
-.nk-band+.nk-feats{margin-top:0}
-.nk-row+.nk-band{margin-top:0}
-.nk .nk-feats,.nk .nk-row.rev{margin-top:0}
-.nk .nk-band + .nk-row{margin-top:clamp(40px,6vw,90px)}
+.nk-block+.nk-block{margin-top:clamp(40px,6vw,90px)}
+.nk+.section.tight{padding-top:clamp(64px,9vw,120px)}
 
 /* matière : acier inoxydable */
 .mat-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}

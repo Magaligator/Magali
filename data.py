@@ -38,24 +38,18 @@ COLLECTIONS = {
 }
 
 PRODUCTS = [
-    dict(slug="kate", name="Kate", type="statement", collection="aura", price=139,
-         badge="Nouveau", label="Boucles éventails sculpturaux",
-         dim=None, weight=None, clasp=None,
-         tagline="Une allure sculpturale et intemporelle.",
-         story=["Les boucles d'oreilles KATE se distinguent par leur design moderne et audacieux. Leur forme ondulante aux reflets dorés apporte une touche d'élégance et de caractère à chaque tenue. Un bijou lumineux, pensé pour les femmes qui aiment les pièces uniques et sophistiquées.",
-                "Des lignes sculpturales, une finition dorée éclatante et une forme ondulante pour un bijou qui attire la lumière et sublime chaque instant."]),
     dict(slug="nala", name="Nala", type="statement", collection="aura", price=149,
-         badge="Nouveau", label="Pendantes éventails ondulés",
+         badge="Nouveau", label="Boucles éventails ondulés",
          dim=None, weight=None, clasp=None,
          tagline="Une silhouette audacieuse, tout en élégance.",
-         story=["Les boucles d'oreilles NALA se distinguent par leur design sculptural et moderne. Leur forme ondulante aux reflets dorés apporte une touche de caractère et de sophistication à chaque tenue. Un bijou lumineux, pensé pour les femmes qui assument leur style avec élégance.",
+         story=["Les boucles d'oreilles NALA se distinguent par leur design sculptural et contemporain. Leur forme ondulante aux reflets dorés apporte une touche de caractère et de sophistication à chaque tenue. Un bijou lumineux, pensé pour les femmes qui assument leur style avec élégance.",
                 "Des lignes graphiques et une finition dorée éclatante pour un bijou qui attire la lumière et sublime chaque instant."]),
     dict(slug="amara", name="Amara", type="statement", collection="soleil", price=129,
-         badge="Nouveau", label="Disques filigranés et cristaux",
+         badge="Nouveau", label="Disques floraux ajourés",
          dim=None, weight=None, clasp=None,
-         tagline="Une fleur de lumière, une pointe de couleur.",
-         story=["Amara aime les détails qui se découvrent de près : une dentelle dorée ajourée comme une feuille, un dôme brillant qui capte la lumière, un éclat de couleur.",
-                "Ses disques filigranés encadrent un cœur doré souligné de cristaux colorés : un bijou lumineux, pour celles qui osent la couleur avec élégance."]),
+         tagline="L'élégance qui ne passe pas inaperçue.",
+         story=["Audacieuses, lumineuses et délicatement travaillées, les boucles d'oreilles AMARA apportent une touche de caractère à chaque tenue. Leur silhouette florale ajourée et leur sphère centrale à l'effet miroir captent la lumière, sublimées par de délicats détails colorés.",
+                "Un motif floral ajouré, une sphère lumineuse et une touche de couleur pour un bijou plein de caractère."]),
     dict(slug="lina", name="Lina", type="creoles", collection="soleil", price=89,
          badge="Best-seller", label="Créoles sculptées",
          dim="Ø 32 mm", weight="4,4 g", clasp="Fermoir clic",
@@ -80,7 +74,7 @@ PRODUCTS = [
                 "Ses croissants dorés et mats, légers comme un souffle, accompagnent les rêveuses qui ont les pieds sur "
                 "terre : celles qui finissent toujours par réaliser ce qu'elles ont écrit."]),
     dict(slug="victoria", name="Victoria", type="pendantes", collection="aura", price=149,
-         badge=None, label="Pendantes sphères filigranées",
+         badge="Nouveau", label="Pendantes sphères filigranées",
          dim="H 55 mm", weight="5,2 g", clasp="Tige & papillon",
          tagline="Les grandes soirées lui appartiennent.",
          story=["Victoria ne choisit pas entre élégance et audace : elle porte les deux, avec le même sourire.",
@@ -156,8 +150,8 @@ MOODS = [
 
 # diapositives du slider d'accueil : (slug du produit lié, fichier hero, point focal x, y)
 HERO = [
-    ("nala", 0.58, 0.45),
-    ("kate", 0.62, 0.45),
+    ("nala", 0.60, 0.50),
+    ("amara", 0.55, 0.50),
     ("aaliyah", 0.50, 0.46),
     ("zuri", 0.50, 0.42),
 ]
