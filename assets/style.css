@@ -577,6 +577,33 @@ body.open-search .search{opacity:1;visibility:visible}
 .cursor.view span::after{content:"VOIR"}
 @media (hover:hover) and (pointer:fine){.cursor.on{display:block}}
 
+/* collection Nala / Kate (éditorial) */
+.nk{background:var(--paper);padding:clamp(64px,9vw,130px) 0;border-block:1px solid var(--line)}
+.nk-row{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);align-items:stretch;background:var(--w)}
+.nk-row.rev .nk-img{order:2}
+.nk-img{overflow:hidden;background:#e9e2da;min-height:420px}
+.nk-img img{width:100%;height:100%;object-fit:cover}
+.nk-text{display:flex;flex-direction:column;justify-content:center;padding:clamp(30px,5vw,80px);max-width:640px}
+.nk-text .mono{color:var(--bd);margin-bottom:22px}
+.nk-title{font:400 clamp(4.6rem,9vw,8.6rem)/.9 var(--serif);letter-spacing:.04em;color:var(--bd);margin-bottom:18px}
+.nk-tag{font:italic 400 clamp(1.7rem,2.4vw,2.3rem)/1.2 var(--serif);color:var(--bd);padding-bottom:22px;margin-bottom:22px;border-bottom:1px solid var(--bd);max-width:22ch}
+.nk-body{color:var(--ink2);font-size:1.08rem;line-height:1.7;margin-bottom:34px;max-width:46ch}
+.nk-feats{display:grid;grid-template-columns:repeat(4,1fr);background:var(--w);margin:0;border-block:1px solid var(--line)}
+.nk-feats li{display:flex;flex-direction:column;align-items:center;gap:12px;padding:30px 12px;text-align:center;font:400 12px/1.6 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--ink2);border-left:1px solid var(--line)}
+.nk-feats li:first-child{border-left:0}
+.nk-feats .ic{width:34px;height:34px;color:var(--bd);stroke-width:1.1}
+.nk-band{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.72fr) minmax(0,1fr);background:var(--bd)}
+.nk-b-img{overflow:hidden;aspect-ratio:1/1}
+.nk-b-img img{width:100%;height:100%;object-fit:cover}
+.nk-b-text{display:flex;flex-direction:column;justify-content:center;gap:20px;padding:clamp(24px,3.5vw,54px);color:var(--ivory,#f7f0e8)}
+.nk-b-text h3{font:400 clamp(1.8rem,2.6vw,2.6rem)/1.1 var(--serif);color:#fff;text-transform:uppercase;letter-spacing:.03em}
+.nk-b-text p{font-size:1.02rem;line-height:1.65;color:rgba(255,255,255,.86)}
+.nk-rule{display:block;width:34px;height:1px;background:rgba(255,255,255,.55)}
+.nk-band+.nk-feats{margin-top:0}
+.nk-row+.nk-band{margin-top:0}
+.nk .nk-feats,.nk .nk-row.rev{margin-top:0}
+.nk .nk-band + .nk-row{margin-top:clamp(40px,6vw,90px)}
+
 /* matière : acier inoxydable */
 .mat-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
 .mat-chips li{font:400 10.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--bd);color:var(--bd);padding:8px 10px}
@@ -616,6 +643,17 @@ body.open-search .search{opacity:1;visibility:visible}
 @media (max-width:900px){
   :root{--hdr:64px}
   .sec-head-m{display:block}
+  .nk-row{grid-template-columns:minmax(0,1fr)}
+  .nk-row .nk-text{order:-1;padding:34px 22px 30px;max-width:none}
+  .nk-row.rev .nk-img{order:0}
+  .nk-img{min-height:0;aspect-ratio:1.15/1}
+  .nk-feats{grid-template-columns:1fr 1fr}
+  .nk-feats li{padding:22px 10px;font-size:11px;border-left:0;border-top:1px solid var(--line)}
+  .nk-feats li:nth-child(-n+2){border-top:0}
+  .nk-feats li:nth-child(even){border-left:1px solid var(--line)}
+  .nk-band{grid-template-columns:1fr 1fr}
+  .nk-b-text{grid-column:1/-1;order:-1;padding:30px 22px}
+  .nk-b-img{aspect-ratio:1/1.05}
   .mat-grid{grid-template-columns:minmax(0,1fr)}
   .mat-intro{position:static}
   .mat-intro h2{max-width:none}

@@ -38,6 +38,24 @@ COLLECTIONS = {
 }
 
 PRODUCTS = [
+    dict(slug="kate", name="Kate", type="statement", collection="aura", price=139,
+         badge="Nouveau", label="Boucles éventails sculpturaux",
+         dim=None, weight=None, clasp=None,
+         tagline="Une allure sculpturale et intemporelle.",
+         story=["Les boucles d'oreilles KATE se distinguent par leur design moderne et audacieux. Leur forme ondulante aux reflets dorés apporte une touche d'élégance et de caractère à chaque tenue. Un bijou lumineux, pensé pour les femmes qui aiment les pièces uniques et sophistiquées.",
+                "Des lignes sculpturales, une finition dorée éclatante et une forme ondulante pour un bijou qui attire la lumière et sublime chaque instant."]),
+    dict(slug="nala", name="Nala", type="statement", collection="aura", price=149,
+         badge="Nouveau", label="Pendantes éventails ondulés",
+         dim=None, weight=None, clasp=None,
+         tagline="Une silhouette audacieuse, tout en élégance.",
+         story=["Les boucles d'oreilles NALA se distinguent par leur design sculptural et moderne. Leur forme ondulante aux reflets dorés apporte une touche de caractère et de sophistication à chaque tenue. Un bijou lumineux, pensé pour les femmes qui assument leur style avec élégance.",
+                "Des lignes graphiques et une finition dorée éclatante pour un bijou qui attire la lumière et sublime chaque instant."]),
+    dict(slug="amara", name="Amara", type="statement", collection="soleil", price=129,
+         badge="Nouveau", label="Disques filigranés et cristaux",
+         dim=None, weight=None, clasp=None,
+         tagline="Une fleur de lumière, une pointe de couleur.",
+         story=["Amara aime les détails qui se découvrent de près : une dentelle dorée ajourée comme une feuille, un dôme brillant qui capte la lumière, un éclat de couleur.",
+                "Ses disques filigranés encadrent un cœur doré souligné de cristaux colorés : un bijou lumineux, pour celles qui osent la couleur avec élégance."]),
     dict(slug="lina", name="Lina", type="creoles", collection="soleil", price=89,
          badge="Best-seller", label="Créoles sculptées",
          dim="Ø 32 mm", weight="4,4 g", clasp="Fermoir clic",
@@ -62,14 +80,14 @@ PRODUCTS = [
                 "Ses croissants dorés et mats, légers comme un souffle, accompagnent les rêveuses qui ont les pieds sur "
                 "terre : celles qui finissent toujours par réaliser ce qu'elles ont écrit."]),
     dict(slug="victoria", name="Victoria", type="pendantes", collection="aura", price=149,
-         badge="Nouveau", label="Pendantes sphères filigranées",
+         badge=None, label="Pendantes sphères filigranées",
          dim="H 55 mm", weight="5,2 g", clasp="Tige & papillon",
          tagline="Les grandes soirées lui appartiennent.",
          story=["Victoria ne choisit pas entre élégance et audace : elle porte les deux, avec le même sourire.",
                 "Ses sphères dorées et filigranées se balancent à chaque pas et dessinent une silhouette sur chaque épaule. "
                 "À porter les cheveux relevés, le regard droit."]),
     dict(slug="aaliyah", name="Aaliyah", type="statement", collection="aura", price=129,
-         badge="Nouveau", label="Boucles soleil et perles",
+         badge=None, label="Boucles soleil et perles",
          dim="Ø 42 mm", weight="4,9 g", clasp="Tige & papillon",
          tagline="Elle porte le soleil à l'oreille.",
          story=["Aaliyah rayonne sans effort. Les gens s'approchent d'elle comme d'une fenêtre ouverte "
@@ -113,7 +131,7 @@ PRODUCTS = [
                 "Son carré doré ajouré comme une carte de géographie dessine un trait de lumière près du visage. "
                 "Pour celles qui préfèrent les graphismes aux fioritures."]),
     dict(slug="juliette", name="Juliette", type="pendantes", collection="soleil", price=109,
-         badge="Nouveau", label="Pendantes ailes ajourées",
+         badge=None, label="Pendantes ailes ajourées",
          dim="H 58 mm", weight="2,4 g", clasp="Tige & papillon",
          tagline="Elle a les ailes qu'elle s'est données.",
          story=["Juliette n'a jamais attendu qu'on lui ouvre une porte : elle a construit la sienne.",
@@ -138,10 +156,10 @@ MOODS = [
 
 # diapositives du slider d'accueil : (slug du produit lié, fichier hero, point focal x, y)
 HERO = [
+    ("nala", 0.58, 0.45),
+    ("kate", 0.62, 0.45),
     ("aaliyah", 0.50, 0.46),
     ("zuri", 0.50, 0.42),
-    ("juliette", 0.50, 0.44),
-    ("victoria", 0.50, 0.42),
 ]
 
 FAQ = [

@@ -16,7 +16,7 @@ TODAY = __import__("datetime").date.today().isoformat()
 BY_SLUG = {p["slug"]: p for p in PRODUCTS}
 TYPE_LABEL = dict(TYPES)
 NUM = {p["slug"]: i + 1 for i, p in enumerate(PRODUCTS)}
-FRAGILE = {"aaliyah": "perles", "ines": "perles", "naima": "strass"}
+FRAGILE = {"aaliyah": "perles", "ines": "perles", "naima": "strass", "amara": "cristaux"}
 
 
 def w(rel, content):
@@ -83,6 +83,8 @@ def ic(name, cls="ic"):
         "shield": '<path d="M12 3l7.5 3v5.5c0 4.5-3 8-7.5 9.5-4.5-1.5-7.5-5-7.5-9.5V6z"/><path d="M8.8 12l2.2 2.2 4.2-4.4"/>',
         "layers": '<path d="M12 3.5l9 4.5-9 4.5L3 8z"/><path d="M3 12.5l9 4.5 9-4.5"/><path d="M3 16.5l9 4.5 9-4.5"/>',
         "ring": '<circle cx="12" cy="12" r="7.5"/><circle cx="12" cy="12" r="3.2"/>',
+        "spark": '<path d="M12 3l1.8 6.2L20 11l-6.2 1.8L12 19l-1.8-6.2L4 11l6.2-1.8z"/>',
+        "leaf": '<path d="M5 19c0-8 5-13 14-14 0 9-5 14-13 14"/><path d="M5 19l8-8"/>',
         "grid4": '<path d="M4 4h4v4H4zM10 4h4v4h-4zM16 4h4v4h-4zM4 10h4v4H4zM10 10h4v4h-4zM16 10h4v4h-4zM4 16h4v4H4zM10 16h4v4h-4zM16 16h4v4h-4z"/>',
         "grid2": '<path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/>',
     }
@@ -296,6 +298,38 @@ def section_head(kicker, title, link=None, href=None):
 
 
 # ───────────────────────── pages ─────────────────────────
+def nk_block(slug, model, stone, macro, band_title, band_text, rev=False):
+    p = BY_SLUG[slug]
+    r = " rev" if rev else ""
+    return f'''<div class="nk-row{r}">
+    <div class="nk-img img-reveal"><img src="{photo(model)}" alt="Boucles d'oreilles {p['name']} portées, collection Magalaï" loading="lazy" width="1000" height="866"></div>
+    <div class="nk-text reveal">
+      <p class="mono">Collection Magalaï <i>/</i> Bijoux qui vous ressemblent</p>
+      <h2 class="nk-title">{p['name'].upper()}</h2>
+      <p class="nk-tag">{esc(p['tagline'])}</p>
+      <p class="nk-body">{esc(p['story'][0])}</p>
+      <div class="cta-row"><button class="btn btn-dark" type="button" data-add="{slug}">Ajouter au panier {ic('arrow')}</button><a class="btn btn-outline" href="produit-{slug}.html">Voir la fiche</a></div>
+    </div>
+  </div>
+  <div class="nk-band{r}">
+    <div class="nk-b-img img-reveal"><img src="{photo(stone)}" alt="Les boucles {p['name']} posées sur de la pierre" loading="lazy" width="800" height="780"></div>
+    <div class="nk-b-text"><span class="nk-rule"></span><h3>{band_title}</h3><span class="nk-rule"></span><p>{band_text}</p></div>
+    <div class="nk-b-img img-reveal late"><img src="{photo(macro)}" alt="Détail de la finition dorée des boucles {p['name']}" loading="lazy" width="700" height="760"></div>
+  </div>'''
+
+
+def nk_section():
+    feats = [("gem", "Design", "unique"), ("leaf", "Style", "bohème chic"), ("spark", "Finition", "dorée brillante"), ("heart", "Fait pour vous accompagner", "au quotidien")]
+    fl = "".join(f'<li>{ic(i)}<span>{a}<br>{b}</span></li>' for i, a, b in feats)
+    return f'''<section class="nk">
+  <div class="container">
+    {nk_block("nala", "nk-nala-model", "nk-nala-stone", "nk-nala-macro", "Un design sculptural et intemporel", "Des lignes graphiques et une finition dorée éclatante pour un bijou qui attire la lumière et sublime chaque instant.")}
+    <ul class="nk-feats">{fl}</ul>
+    {nk_block("kate", "nk-kate-model", "nk-kate-stone", "nk-kate-macro", "Un design moderne et audacieux", "Des lignes sculpturales, une finition dorée éclatante et une forme ondulante pour un bijou qui attire la lumière et sublime chaque instant.", True)}
+  </div>
+</section>'''
+
+
 def page_index():
     slides = []
     for i, (slug, fx, fy) in enumerate(HERO):
@@ -375,6 +409,8 @@ def page_index():
   </div>
 </section>
 
+{nk_section()}
+
 <section class="section tight">
   <div class="container">
     {section_head("Par style", "Choisissez votre <em>silhouette</em>", "Toute la boutique", "boutique.html")}
@@ -447,13 +483,13 @@ def page_index():
 </section>
 
 <section class="gift">
-  <div class="container sec-head-m">{section_head("Offrir", "Une paire, <em>une histoire</em> à offrir.", "Choisir un cadeau", "boutique.html")}</div>
+  <div class="container sec-head-m">{section_head("Offrir", "Un bijou, <em>une histoire</em> à offrir.", "Choisir un cadeau", "boutique.html")}</div>
   <div class="container gift-grid">
-    <div class="gift-media img-reveal"><img src="{photo('offer')}" alt="Portrait souriant, boucles d'oreilles perle" loading="lazy" width="1100" height="1100"></div>
+    <div class="gift-media img-reveal"><img src="{photo('pochette')}" alt="Pochette en velours bordeaux MAGALAÏ et boucles d'oreilles dorées" loading="lazy" width="900" height="854"></div>
     <div class="gift-copy reveal">
       <div class="copy-head"><p class="mono">Offrir</p>
-      <h2>Une paire, <em>une histoire</em> à offrir.</h2></div>
-      <p>Chaque paire est glissée dans un écrin, accompagnée de la carte qui raconte la femme dont elle porte le prénom. Ajoutez un message manuscrit : nous l'écrivons pour vous.</p>
+      <h2>Un bijou, <em>une histoire</em> à offrir.</h2></div>
+      <p>Chaque création MAGALAÏ porte le prénom d'une femme, symbole de force, de beauté et d'inspiration. Elle est glissée dans une pochette en velours bordeaux, accompagnée de la carte qui raconte la femme dont elle porte le prénom. Ajoutez un message manuscrit : nous l'écrivons pour vous.</p>
       <ul class="ticks-list"><li>{ic('check')} Écrin &amp; carte-histoire inclus</li><li>{ic('check')} Message manuscrit en option</li><li>{ic('check')} Livraison offerte dès {CURRENCY} {FREE_SHIPPING}</li></ul>
       <a class="btn btn-dark hide-m" href="boutique.html">Choisir un cadeau {ic('arrow')}</a>
     </div>
@@ -534,6 +570,7 @@ def page_produit(p):
         if x["slug"] != p["slug"] and x["slug"] not in related:
             related.append(x["slug"])
     fr = FRAGILE.get(p["slug"])
+    spec_txt = (" " + ", ".join(x for x in (p["dim"], (p["weight"] + " la paire") if p["weight"] else None, p["clasp"]) if x) + ".") if (p["dim"] or p["weight"] or p["clasp"]) else ""
     frag_detail = (f"<p>Les {fr} sont plus délicats que l'acier : évitez les chocs et retirez la paire avant de vous laver.</p>" if fr else "")
     frag_care = (f"<p>Pour les {fr} : pas d'eau prolongée, pas de produits (parfum, crème), et un simple chiffon sec.</p>" if fr else "")
     purl = f"{SITE_URL}/produit-{p['slug']}.html"
@@ -563,7 +600,7 @@ def page_produit(p):
         <ul class="mat-chips"><li>Acier inoxydable</li><li>Résiste à l'eau &amp; à la sueur</li><li>Ne rouille pas</li></ul>
         <p class="pdp-price">{price(p['price'])}</p>
         <p class="pdp-tag">« {esc(p['tagline'])} »</p>
-        <ul class="specs"><li><span>Dimension</span>{p['dim']}</li><li><span>Poids</span>{p['weight']}</li><li><span>Fermeture</span>{p['clasp']}</li><li><span>Matière</span>Acier inoxydable</li></ul>
+        <ul class="specs">{"".join(f"<li><span>{k}</span>{v}</li>" for k, v in (("Dimension", p["dim"]), ("Poids", p["weight"]), ("Fermeture", p["clasp"])) if v)}<li><span>Matière</span>Acier inoxydable</li><li><span>Finition</span>Dorée</li></ul>
         <label class="gift-opt"><input type="checkbox" id="gift-chk"><span class="box">{ic('check')}</span><span>Offrir avec <strong>écrin &amp; message manuscrit</strong> <em>(offert)</em></span></label>
         <div class="buy">
           <div class="qty" role="group" aria-label="Quantité"><button type="button" data-q="-1" aria-label="Moins">{ic('minus')}</button><output id="qty">1</output><button type="button" data-q="1" aria-label="Plus">{ic('plus')}</button></div>
@@ -574,7 +611,7 @@ def page_produit(p):
         <ul class="mini-promises"><li>{ic('truck')} Livraison offerte dès {CURRENCY} {FREE_SHIPPING}</li><li>{ic('return')} Retours sous 30 jours</li><li>{ic('shield')} Acier inoxydable : eau, sueur, rouille</li></ul>
         <div class="accordion">
           <details open><summary>Son histoire{ic('plus')}</summary><div class="acc-body">{story}</div></details>
-          <details><summary>Détails &amp; matière{ic('plus')}</summary><div class="acc-body"><p><strong>Acier inoxydable, finition dorée.</strong> {p['dim']}, {p['weight']} la paire. {p['clasp']}.</p><p>Au moins 10,5 % de chrome : au contact de l'air, il forme une fine couche d'oxyde qui protège l'acier de la corrosion. Il résiste à l'eau, à la transpiration et aux cosmétiques, et ne rouille pas dans un usage normal.</p><p>Matière bien tolérée par la plupart des peaux ; en cas d'allergie au nickel avérée, demandez l'avis d'un dermatologue.</p>{frag_detail}</div></details>
+          <details><summary>Détails &amp; matière{ic('plus')}</summary><div class="acc-body"><p><strong>Acier inoxydable, finition dorée.</strong>{spec_txt}</p><p>Au moins 10,5 % de chrome : au contact de l'air, il forme une fine couche d'oxyde qui protège l'acier de la corrosion. Il résiste à l'eau, à la transpiration et aux cosmétiques, et ne rouille pas dans un usage normal.</p><p>Matière bien tolérée par la plupart des peaux ; en cas d'allergie au nickel avérée, demandez l'avis d'un dermatologue.</p>{frag_detail}</div></details>
           <details><summary>Livraison &amp; retours{ic('plus')}</summary><div class="acc-body"><p>Expédition sous 48 h ouvrées. 2 à 3 jours en Suisse, 4 à 7 jours en Europe. Livraison offerte dès {CURRENCY} {FREE_SHIPPING}.</p><p>Retours acceptés sous 30 jours, boucles non portées et dans leur emballage d'origine.</p></div></details>
           <details><summary>Entretien{ic('plus')}</summary><div class="acc-body"><p>Douche, pluie et sport ne leur font pas peur. Évitez les bains prolongés en piscine ou en mer (chlore, sel).</p>{frag_care}<p>Pour préserver l'éclat de la finition dorée : évitez les produits abrasifs, essuyez-les avec un chiffon doux et rangez-les dans leur écrin.</p></div></details>
         </div>
@@ -630,7 +667,7 @@ def page_collections():
 <section class="page-head big">
   <div class="container">
     <nav class="crumbs" aria-label="Fil d'Ariane"><a href="index.html">Accueil</a> <i>/</i> Collections</nav>
-    <h1>Trois univers, <em>douze femmes.</em></h1>
+    <h1>Trois univers, <em>quinze femmes.</em></h1>
     <p class="lead">Chaque collection a son atmosphère. Chaque boucle, son prénom.</p>
   </div>
 </section>
@@ -652,7 +689,7 @@ def page_histoire():
 <section class="page-head big">
   <div class="container">
     <nav class="crumbs" aria-label="Fil d'Ariane"><a href="index.html">Accueil</a> <i>/</i> Notre histoire</nav>
-    <h1>Un surnom, <em>une promesse,</em> douze prénoms.</h1>
+    <h1>Un surnom, <em>une promesse,</em> quinze prénoms.</h1>
     <p class="lead">L'histoire de MAGALAÏ commence avec un mot que l'on m'a donné à l'adolescence.</p>
   </div>
 </section>
@@ -683,7 +720,8 @@ def page_histoire():
       <h2>Chaque boucle porte le prénom <em>d'une femme.</em></h2>
     </div>
     <div class="prose reveal">
-      <p>Lina, Clara, Naïma, Victoria… Chaque modèle est imaginé comme le portrait d'une femme : sa manière d'entrer dans une pièce, de rire, de se tenir.</p>
+      <p>Chaque création MAGALAÏ porte le prénom d'une femme, symbole de force, de beauté et d'inspiration.</p>
+      <p>Kate, Nala, Amara, Lina, Naïma… Chaque modèle est imaginé comme le portrait d'une femme : sa manière d'entrer dans une pièce, de rire, de se tenir.</p>
       <p>Vous ne choisissez plus « des créoles » ou « des pendantes » : vous choisissez celle qui vous ressemble aujourd'hui. Et dans l'écrin, une carte vous raconte son histoire — il ne reste qu'à écrire la vôtre.</p>
       <a class="btn btn-dark" href="collections.html">Découvrir les femmes Magalaï {ic('arrow')}</a>
     </div>
