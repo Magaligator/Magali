@@ -68,15 +68,11 @@ ph("nk-nala-stone", n_stone, 800); ph("nk-nala-macro", n_macro, 800)
 ph("nk-amara-stone", a_stone, 800); ph("nk-amara-macro", a_macro, 800)
 ph("pochette", a_pouch.crop((110, 0, 494, 384)), 900)
 
-# slider : NALA et AMARA en tête, puis les deux portraits précédents
-if not os.path.exists(os.path.join(PH, "_hero-prev-1.webp")):
-    for i in (1, 2):
-        os.replace(os.path.join(PH, f"hero-{i}.webp"), os.path.join(PH, f"_hero-prev-{i}.webp"))
-prev = [Image.open(os.path.join(PH, f"_hero-prev-{i}.webp")).convert("RGB") for i in (1, 2)]
-for i, im in enumerate([n_model, a_model, prev[0], prev[1]], 1):
+# slider d'accueil : uniquement NALA et AMARA (visuels des affiches)
+for i, im in enumerate([n_model, a_model], 1):
     out(im, os.path.join(PH, f"hero-{i}.webp"), 1000 if im.width < 1000 else im.width, 84)
 uris = []
-for i in range(1, 5):
+for i in (1, 2):
     im = Image.open(os.path.join(PH, f"hero-{i}.webp")).convert("RGB")
     im = im.resize((900, round(im.height * 900 / im.width)), Image.LANCZOS)
     b = io.BytesIO(); im.save(b, "WEBP", quality=76, method=6)

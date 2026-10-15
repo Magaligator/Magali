@@ -12,6 +12,7 @@ PROD = os.path.join(ROOT, "assets", "img", "produits")
 SITE_URL = "https://magaligator.github.io/Magali"   # à changer le jour où tu as un nom de domaine (ex. https://www.magalai.ch) puis relancer build.py
 CUR = "index.html"   # page en cours de génération (pour canonical / sitemap)
 TODAY = __import__("datetime").date.today().isoformat()
+VER = __import__("datetime").datetime.now().strftime("%Y%m%d%H%M")
 
 BY_SLUG = {p["slug"]: p for p in PRODUCTS}
 TYPE_LABEL = dict(TYPES)
@@ -253,7 +254,7 @@ def layout(page, title, desc, body, extra_head="", extra_js=""):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/style.css?v={VER}">
 {extra_head}
 </head>
 <body data-page="{page}">
@@ -263,8 +264,8 @@ def layout(page, title, desc, body, extra_head="", extra_js=""):
 </main>
 {footer()}
 {drawers()}
-<script src="assets/products.js"></script>
-{extra_js}<script src="assets/main.js"></script>
+<script src="assets/products.js?v={VER}"></script>
+{extra_js}<script src="assets/main.js?v={VER}"></script>
 </body>
 </html>'''
 
@@ -509,7 +510,7 @@ def page_index():
 '''
     return layout("index", "MAGALAÏ — Boucles d'oreilles dorées en acier inoxydable",
                   "Boucles d'oreilles dorées en acier inoxydable, résistantes à l'eau et à la sueur. Chaque paire porte le prénom d'une femme. Livraison offerte dès CHF 120.",
-                  body, extra_js='<script src="assets/hero-data.js"></script>\n')
+                  body, extra_js=f'<script src="assets/hero-data.js?v={VER}"></script>\n')
 
 
 def page_boutique():
